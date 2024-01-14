@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+  color: #6B6A78;
+
+  
+}
+
+.nav {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1.2rem;
+  color: #6B6A78;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.todo {
+  position: sticky;
+  overflow: hidden;
+  overflow: auto;
+  margin: 1.6rem auto 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  max-height: 80vh;
+  width: 550px;
+}
+
+.date {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem 0;
+}
+
+
+.left-date {
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+}
+
+.currdate {
+  font-size: 3rem;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-top: 3px;
+}
+.weekday {
+  margin: 10px 20px;
+  font-size: 1.7rem;
+}
+
+.todoInput {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoInput input {
+  width: 85%;
+  background-color: rgb(231, 228, 228);
+  border: none;
+  border-radius: 3px;
+  height: 2rem;
+  margin-left: 16px;
+  color: #6B6A78;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.todoInput input:active,
+.todoInput input:focus {
+  outline: none;
+}
+
+.todoInput button {
+  border: none;
+  background: transparent;
+  margin-right: 12px;
+}
+
+.todoInput button:hover {
+  cursor: pointer;
+}
+
+.add {
+  font-size: 2.2rem;
+}
+
+.ListItems {
+  position: relative;
+  background-color: rgb(231, 228, 228);
+  width: 85.5%;
+  border-radius: 3px;
+  height: 2rem;
+  margin-top: 10px;
+  margin-left: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.ListItems span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-left: 1.3rem;
+}
+
+
+.DelEd {
+  display: flex;
+  width: 60px;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.bt {
+  font-size: 23px;
+  color: #6B6A78;
+}
+.bt:hover {
+  cursor: pointer;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .todo {
+    width: 90%;
+  }
+}
