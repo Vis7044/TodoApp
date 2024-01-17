@@ -5,9 +5,9 @@ const jwt = require("jsonwebtoken");
 
 module.exports.signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
-
+  
   try {
+    const hashedPassword = bcrypt.hashSync(password, 10);
     const user = new User({
       username,
       email,
@@ -24,7 +24,8 @@ module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
-    if (!existingUser) return next(errorHandler(400, "Email not found! signup first"));
+    if (!existingUser)
+      return next(errorHandler(400, "Email not found! signup first"));
 
     const isValid = bcrypt.compareSync(password, existingUser.password);
 
@@ -37,12 +38,11 @@ module.exports.login = async (req, res, next) => {
 
     const { password: pass, ...rest } = existingUser._doc;
 
-    res.cookie("access_token", token, { httpOnly: true, secure: true }).status(201).json({rest});
-
+    res
+      .cookie("access_token", token, { httpOnly: true, secure: true })
+      .status(201)
+      .json({ rest });
   } catch (error) {
     return next(error);
   }
 };
-
-
-
