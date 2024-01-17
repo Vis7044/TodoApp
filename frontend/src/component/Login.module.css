@@ -1,0 +1,23 @@
+.signin {
+    width: 30%;
+    margin: auto;
+}
+
+.signin h1 {
+font-size: 1.8rem;
+
+}
+
+.signin input {
+    margin-bottom: 1.3rem  ;
+}
+
+.signin input:active,
+.signin input:focus {
+    outline: none;
+}
+
+.signinbtn {
+    background-color: rgb(150, 123, 150);
+}
+

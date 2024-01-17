@@ -10,7 +10,7 @@ const TodoItems = () => {
   const [data, setData] = useState([]);
   //fetchall
   const fetchData = async () => {
-    const response = await fetch("/api/user/get");
+    const response = await fetch("/api/list/get");
     const result = await response.json();
     if (response.ok) {
       setData(result);
@@ -20,7 +20,7 @@ const TodoItems = () => {
   //Delete
 
   const Delete = async (id) => {
-    const response = await fetch(`/api/user/delete/${id}`,{
+    const response = await fetch(`/api/list/delete/${id}`,{
       method:'DELETE'
     });
     const result = await response.json();

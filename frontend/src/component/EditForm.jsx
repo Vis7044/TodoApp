@@ -15,7 +15,7 @@ const EditForm = () => {
   // const navigate = Navigate()
   //fetchone
   const GetOneData = async () => {
-    const response = await fetch(`/api/user/getSingle/${id}`);
+    const response = await fetch(`/api/list/getSingle/${id}`);
     const result = await response.json();
     if (response.ok) {
       setSingleData(result.title);
@@ -29,7 +29,7 @@ const EditForm = () => {
   //update date 
   const update = async (e) => {
     e.preventDefault()
-    const response = await fetch(`/api/user/update/${id}`,{
+    const response = await fetch(`/api/list/update/${id}`,{
       method:'PUT',
       body: JSON.stringify({
         title: singleData

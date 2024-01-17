@@ -1,15 +1,18 @@
 import React from 'react'
 import classes from './NavBar.module.css'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const NavBar = () => {
+  const {currentUser} = useSelector(state => state.user)
   return (
     <div className={`${classes.nav}`}>
       <div className={classes.title}><span>TodoList</span></div>
       <div className={classes.Tags}>
-        <sapn><Link to={'/'}>Home</Link></sapn>
-        <sapn><Link to={'/login'}>Login</Link></sapn>
-        <sapn><Link to={'/signup'}>Signup</Link></sapn>
+        {currentUser && <sapn><Link to={'/'}>Home</Link></sapn>}
+        {!currentUser && <sapn><Link to={'/login'}>Login</Link></sapn>}
+        {!currentUser && <sapn><Link to={'/signup'}>Signup</Link></sapn>}
+        {currentUser && <span><Link to={'/profile'}>Profile</Link></span>}
       </div>
     </div>
   )

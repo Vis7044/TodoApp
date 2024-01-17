@@ -8,7 +8,7 @@ const AddTodo = ({fetchData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("/api/user/save", {
+    fetch("/api/list/save", {
       method: "POST",
       body: JSON.stringify({
         title: title,
