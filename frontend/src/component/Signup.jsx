@@ -74,6 +74,7 @@ const Signup = () => {
           <span className="mx-2 underline">Login</span>
         </Link>
       </div>
+      {error? <p className="text-red-600 text-left">{error}</p>:""}
     </div>
   )
 }
