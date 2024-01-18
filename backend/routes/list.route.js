@@ -8,18 +8,18 @@ const {verifyUser} = require('../midddleware/verifyUser')
 const {postTodo, getTodo,fetchOne,updateTodo, deleteTodo }  = require('../controller/listController')
 
 //create Data
-router.post("/save", verifyUser, postTodo);
+router.post("/save/:userRef", verifyUser, postTodo);
 
 //fetch all data
-router.get("/get", verifyUser, getTodo);
+router.get("/get/:userRef", verifyUser, getTodo);
 
 //fetch single data
-router.get("/getSingle/:id",verifyUser, fetchOne);
+router.get("/getSingle/:userRef/:id",verifyUser, fetchOne);
 
 //Update data
-router.put("/update/:id",verifyUser, updateTodo);
+router.put("/update/:userRef/:id",verifyUser, updateTodo);
 
 //Delete data
-router.delete("/delete/:id",verifyUser, deleteTodo);
+router.delete("/delete/:userRef/:id",verifyUser, deleteTodo);
 
 module.exports = router;

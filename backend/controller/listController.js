@@ -4,21 +4,13 @@ const listModel = require("../models/listModel");
 const userModel = require("../models/userModel");
 
 module.exports.postTodo = async (req, res, next) => {
-  const user = req.user;
+  if(req.user.id !== req.params.userRef) return next(errorHandler(404, 'You are not allowed to save to others todo'))
   const list = await listModel({
     title: req.body.title,
+    userRef: req.params.userRef
   });
-
   try {
     await list.save();
-    const ObjId = new mongoose.Types.ObjectId(list.id);
-    await userModel.findByIdAndUpdate(
-      user.id,
-      {
-        $push: { todo: ObjId },
-      },
-      { new: true }
-    );
     res.status(301).json("Todo Added Successfully");
   } catch (error) {
     next(error);
@@ -26,13 +18,11 @@ module.exports.postTodo = async (req, res, next) => {
 };
 
 module.exports.getTodo = async (req, res, next) => {
-  const user = req.user;
-  console.log(user);
-  userModel
-    .findById({ _id: user.id })
-    .populate({ path: "todo" })
+  if(req.user.id !== req.params.userRef) return next(errorHandler(404, 'You are not allowed to see others todo'))
+  listModel
+    .find({ userRef: req.params.userRef})
     .then((result) => {
-      res.status(201).json(result.todo);
+      res.status(201).json(result);
     })
     .catch((error) => {
       res.status(400).json({ Message: error.message });
@@ -40,9 +30,10 @@ module.exports.getTodo = async (req, res, next) => {
 };
 
 module.exports.fetchOne = (req, res, next) => {
-  const { id } = req.params;
+  if(req.user.id !== req.params.userRef) return next(errorHandler(404, 'You are not allowed to see others todo'))
+
   listModel
-    .findById({ _id: id })
+    .findById({ _id: req.params.id })
     .then((result) => {
       res.status(201).json(result);
     })
@@ -52,7 +43,8 @@ module.exports.fetchOne = (req, res, next) => {
 };
 
 module.exports.updateTodo = (req, res, next) => {
-    const { id } = req.params;
+  if(req.user.id !== req.params.userRef) return next(errorHandler(404, 'You are not allowed to update others todo'))
+    const { id, userRef } = req.params;
     listModel
       .findByIdAndUpdate(id, req.body, {
         new: true,
@@ -66,7 +58,8 @@ module.exports.updateTodo = (req, res, next) => {
   }
 
 module.exports.deleteTodo = (req, res, next) => {
-    const { id } = req.params;
+  if(req.user.id !== req.params.userRef) return next(errorHandler(404, 'You are not allowed to delete others todo'))
+  const { id, userRef } = req.params;
     listModel
       .findByIdAndDelete({ _id: id })
       .then((result) => {

@@ -8,6 +8,10 @@ const listSchema = new Schema({
         type: String, 
         required: true,
         unique: true
+    },
+    userRef: {
+        type: String,
+        required: true
     }
 });
 

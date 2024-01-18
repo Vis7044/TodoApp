@@ -5,12 +5,14 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { CgAdd } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const TodoItems = () => {
   const [data, setData] = useState([]);
+  const {currentUser} = useSelector(state => state.user)
   //fetchall
   const fetchData = async () => {
-    const response = await fetch("/api/list/get");
+    const response = await fetch(`/api/list/get/${currentUser.rest._id}`);
     const result = await response.json();
     if (response.ok) {
       setData(result);
@@ -20,7 +22,7 @@ const TodoItems = () => {
   //Delete
 
   const Delete = async (id) => {
-    const response = await fetch(`/api/list/delete/${id}`,{
+    const response = await fetch(`/api/list/delete/${currentUser.rest._id}/${id}`,{
       method:'DELETE'
     });
     const result = await response.json();

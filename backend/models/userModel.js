@@ -18,11 +18,7 @@ const UserShema = new Schema({
     password: {
         type: String,
         required: [true, 'Enter the password']
-    },
-    todo: [{
-        type: Schema.Types.ObjectId,
-        ref: 'List'
-    }]
+    }
 });
 
 

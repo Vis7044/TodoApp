@@ -3,11 +3,13 @@ import { CgAdd } from "react-icons/cg";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EditForm = () => {
   const [singleData, setSingleData] = useState();
-  const [edit, setEdit] = useState()
-  const [navigate, setNavigate] = useState(false)
+  const [edit, setEdit] = useState();
+  const [navigate, setNavigate] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const { id } = useParams();
   console.log(id);
@@ -15,7 +17,9 @@ const EditForm = () => {
   // const navigate = Navigate()
   //fetchone
   const GetOneData = async () => {
-    const response = await fetch(`/api/list/getSingle/${id}`);
+    const response = await fetch(
+      `/api/list/getSingle/${currentUser.rest._id}/${id}`
+    );
     const result = await response.json();
     if (response.ok) {
       setSingleData(result.title);
@@ -26,18 +30,21 @@ const EditForm = () => {
     }
   };
 
-  //update date 
+  //update date
   const update = async (e) => {
-    e.preventDefault()
-    const response = await fetch(`/api/list/update/${id}`,{
-      method:'PUT',
-      body: JSON.stringify({
-        title: singleData
-      }),
-      headers: {
-        'Content-Type': 'application/json'
+    e.preventDefault();
+    const response = await fetch(
+      `/api/list/update/${currentUser.rest._id}/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          title: singleData,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
     const result = await response.json();
     if (response.ok) {
       setSingleData(result.title);
@@ -49,21 +56,27 @@ const EditForm = () => {
     setNavigate(!navigate);
   };
 
-  
-
   useEffect(() => {
     GetOneData();
   }, []);
 
   return (
     <form onSubmit={update}>
+      <div className="h-52 m-auto  flex flex-col justify-center items-center gap-5">
+        <h1 className="font-semibold text-3xl">Update Your Todo</h1>
         <div className="todoInput">
-          <input value={singleData?singleData:''} type="text" onChange={(e) => setSingleData(e.target.value)} />
-          <button type="submit">
+          <input
+          className="ml-3"
+            value={singleData ? singleData : ""}
+            type="text"
+            onChange={(e) => setSingleData(e.target.value)}
+          />
+          <button className="ml-5" type="submit">
             <CgAdd className="add" />
-            {navigate && <Navigate to='/' />}
+            {navigate && <Navigate to="/" />}
           </button>
         </div>
+      </div>
     </form>
   );
 };
